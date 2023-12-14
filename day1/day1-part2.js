@@ -5,49 +5,26 @@ const howManyNumbersInString = (str) => {
     return str.replace(/[^0-9]/g, '').length;
 };
 
-const stringNumbers = ['one', 'two', 'three', 'four', 'five','six','seven', 'eight', 'nine'];
-
 let count = 0; 
 var result = readFileSync(inputFile).toString().split("\n");
 
-const stringToNumber = (stringToConvert) => {
-    switch (stringToConvert) {  
-        case 'one':
-            return 1;
-            break;
-        case 'two': 
-            return 2;
-            break;
-        case 'three': 
-            return 3;
-            break;
-        case 'four': 
-            return 4;
-            break;
-        case 'five': 
-            return 5;
-            break;
-        case 'six': 
-            return 6;
-            break;
-        case 'seven': 
-            return 7; 
-            break; 
-        case 'eight': 
-            return 8;
-            break;
-        case 'nine': 
-            return 9;
-            break;
-        default:
-            return false;
-    }
+// Add number into the middle of string numbers to make them easier to find
+const changeStringsToNumbers = (res) => {
+    res = res.replaceAll('one', 'o1e');
+    res = res.replaceAll('two', 't2o');
+    res = res.replaceAll('three', 't3e');
+    res = res.replaceAll('four', 'f4r');
+    res = res.replaceAll('five', 'f5e');
+    res = res.replaceAll('six', 's6x');
+    res = res.replaceAll('seven', 's7n');
+    res = res.replaceAll('eight', 'e8t');
+    res = res.replaceAll('nine', 'n9e');
+    return res;
 }
 
-function findNumbers(res) {
+const findNumbers = (res) => {
     const numOfNumbers = howManyNumbersInString(res);
     const numbers = [];
-
     // Handle if there is only one number in the string or if there is more than one number in the string
     if (numOfNumbers > 1) { 
         const firstNumber = res.replace(/[^0-9]/g, '')[0];
@@ -60,34 +37,24 @@ function findNumbers(res) {
         const onlyNumber = res.replace(/[^0-9]/g, '')[0];
         numbers.push( {'number': parseInt(onlyNumber), 'index': res.indexOf(onlyNumber)} );
     }
-        
-    // Check for numbers as words
-    for ( let x = 0; x <= stringNumbers.length -1; x++ ) {
-        if ( res.indexOf(stringNumbers[x]) !== -1 ) {
-            numbers.push({'number': stringToNumber(stringNumbers[x]), 'index': res.indexOf(stringNumbers[x]) });
-        }
-    }
        
     // Sort the numbers in order by their index within the string
     numbers.sort((a, b) => a.index - b.index);
     return numbers;
 }
 
-getFirstNum = (str) => {
-    return str[0]['number'];
-}
-
-getLastNum = (str) => {
-    return str[str.length -1]['number'];
-}
+getFirstNum = (str) => str[0]['number'];
+getLastNum = (str) => str[str.length -1]['number'];
 
 let TotalAmount = 0;    
-
+c = 1;
 for (i in result) {
-    const nums = findNumbers(result[i]);
+    const res = changeStringsToNumbers(result[i]);
+    const nums = findNumbers(res);
     sum = parseInt(getFirstNum(nums).toString() + getLastNum(nums).toString());
-    //console.log(`${sum}`);
+    //console.log(`${c} + ${res} + ${getFirstNum(nums)} + ${getLastNum(nums)} + ${sum}`, nums);
     TotalAmount = TotalAmount + sum;
+    c++;
 }
 
 console.log(`The total amount is ${TotalAmount}`);

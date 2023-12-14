@@ -1,4 +1,4 @@
-const inputFile = './input.txt';
+const inputFile = './day1part1input.txt';
 const { readFileSync } = require('fs');
 
 

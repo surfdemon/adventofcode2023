@@ -1,10 +1,6 @@
-const inputFile = './input.txt';
+const inputFile = './exampleinput.txt';
 const { readFileSync } = require('fs');
 const { isFloat32Array } = require('util/types');
-
-const REDLIMIT = 12;
-const GREENLIMIT = 13;
-const BLUELIMIT = 14;
 
 const maxAllowed = { 
     red: 12, 
